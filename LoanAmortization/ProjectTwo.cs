@@ -9,7 +9,7 @@ namespace LoanAmortization
     static class ProjectTwo
     {
         /// <summary>
-        ///  Farhana Haque (N00614725)
+        ///  Michael Zulfekar (N00929403)
         ///  Project Two
         ///  Due Date: 10/30/18
         ///  
