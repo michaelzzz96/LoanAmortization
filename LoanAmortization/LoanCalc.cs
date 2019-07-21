@@ -17,6 +17,128 @@ namespace LoanAmortization
             InitializeComponent();
         }
 
+
+        // Global Variables
+        double loanAmount = 0.0;
+        double termIn = 0.0;
+        double rateIn = 0.0;
+
+
+
+        public void LoanAmountOk()
+        {
+            // Check if Loan Amount is acceptable
+            bool loanAmountOkay = double.TryParse(
+                txtLoan.Text,
+                out loanAmount);
+
+
+            if (loanAmountOkay == true)
+            {
+                txtLoan.BackColor = Color.White;
+                if (loanAmount < 1000)
+                {
+                    txtLoan.Focus();
+                    txtLoan.Clear();
+                    txtLoan.BackColor = Color.LightPink;
+                    return;
+                }
+                else if (loanAmount > 1000000)
+                {
+                    txtLoan.Focus();
+                    txtLoan.Clear();
+                    txtLoan.BackColor = Color.LightPink;
+                    return;
+                }
+            }//end if
+
+            else
+            {
+                txtLoan.Focus();
+                txtLoan.Clear();
+                txtLoan.BackColor = Color.LightPink;
+                return;
+            }// end else
+        }
+
+
+        public void LoanYearOk()
+        {
+            // Check if Loan Year is acceptable
+            bool loanYearsOkay = double.TryParse(
+               txtYear.Text,
+               out termIn);
+
+            if (loanYearsOkay == true)
+            {
+                txtYear.BackColor = Color.White;
+                if (termIn > 50)
+                {
+                    txtYear.Focus();
+                    txtYear.Clear();
+                    txtYear.BackColor = Color.LightPink;
+                    return;
+                }
+                if (termIn <= 0)
+                {
+                    txtLoan.Focus();
+                    txtLoan.Clear();
+                    txtLoan.BackColor = Color.LightPink;
+                    return;
+                }
+
+
+            }//end if
+
+            else
+            {
+                txtYear.Focus();
+                txtYear.Clear();
+                txtYear.BackColor = Color.LightPink;
+                return;
+            }// end else
+        }
+
+
+
+        public void InterestOk()
+        {
+            // Check if InterestRate is acceptable
+            bool InterestRateOkay = double.TryParse(
+               txtAPR.Text,
+               out rateIn);
+
+            if (InterestRateOkay == true)
+            {
+                txtAPR.BackColor = Color.White;
+                if (rateIn > 10)
+                {
+                    txtAPR.Focus();
+                    txtAPR.Clear();
+                    txtAPR.BackColor = Color.LightPink;
+                    return;
+                }
+                if (rateIn <= 0)
+                {
+                    txtAPR.Focus();
+                    txtAPR.Clear();
+                    txtAPR.BackColor = Color.LightPink;
+                    return;
+                }
+
+
+            }//end if
+            else
+            {
+                txtAPR.Focus();
+                txtAPR.Clear();
+                txtAPR.BackColor = Color.LightPink;
+                return;
+            }// end else
+        }
+
+
+
         /// <summary>
         /// Calculate the Loan amount, term, and APR percent entered by
         /// the user.
@@ -29,113 +151,11 @@ namespace LoanAmortization
 
             try
             {
-                // Local Variables
-                double loanAmount = 0.0;
-                double termIn = 0.0;
-                double rateIn = 0.0;
 
-
-                // Check if Loan Amount is acceptable
-                bool loanAmountOkay = double.TryParse(
-                    txtLoan.Text,
-                    out loanAmount);
-
-
-                if (loanAmountOkay == true)
-                {
-                    txtLoan.BackColor = Color.White;
-                    if (loanAmount < 1000)
-                    {
-                        txtLoan.Focus();
-                        txtLoan.Clear();
-                        txtLoan.BackColor = Color.LightPink;
-                        return;
-                    }
-                    else if (loanAmount > 1000000)
-                    {
-                        txtLoan.Focus();
-                        txtLoan.Clear();
-                        txtLoan.BackColor = Color.LightPink;
-                        return;
-                    }
-                }//end if
-
-                else
-                {
-                    txtLoan.Focus();
-                    txtLoan.Clear();
-                    txtLoan.BackColor = Color.LightPink;
-                    return;
-                }// end else
-
-
-
-                // Check if Loan Year is acceptable
-                bool loanYearsOkay = double.TryParse(
-                   txtYear.Text,
-                   out termIn);
-
-                if (loanYearsOkay == true)
-                {
-                    txtYear.BackColor = Color.White;
-                    if (termIn > 50)
-                    {
-                        txtYear.Focus();
-                        txtYear.Clear();
-                        txtYear.BackColor = Color.LightPink;
-                        return;
-                    }
-                    if (termIn <= 0)
-                    {
-                        txtLoan.Focus();
-                        txtLoan.Clear();
-                        txtLoan.BackColor = Color.LightPink;
-                        return;
-                    }
-
-
-                }//end if
-
-                else
-                {
-                    txtYear.Focus();
-                    txtYear.Clear();
-                    txtYear.BackColor = Color.LightPink;
-                    return;
-                }// end else
-
-                // Check if InterestRate is acceptable
-                bool InterestRateOkay = double.TryParse(
-                   txtAPR.Text,
-                   out rateIn);
-
-                if (InterestRateOkay == true)
-                {
-                    txtAPR.BackColor = Color.White;
-                    if (rateIn > 10)
-                    {
-                        txtAPR.Focus();
-                        txtAPR.Clear();
-                        txtAPR.BackColor = Color.LightPink;
-                        return;
-                    }
-                    if (rateIn <= 0)
-                    {
-                        txtAPR.Focus();
-                        txtAPR.Clear();
-                        txtAPR.BackColor = Color.LightPink;
-                        return;
-                    }
-
-
-                }//end if
-                else
-                {
-                    txtAPR.Focus();
-                    txtAPR.Clear();
-                    txtAPR.BackColor = Color.LightPink;
-                    return;
-                }// end else
+                // Calling Methods
+                LoanAmountOk();
+                LoanYearOk();
+                InterestOk();
 
 
                 //Interest rate
