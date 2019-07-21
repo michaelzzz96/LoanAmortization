@@ -137,6 +137,62 @@ namespace LoanAmortization
             }// end else
         }
 
+        public void Calculate()
+        {
+            //Interest rate
+            rateIn = (rateIn / 100.0) / 12.0;
+
+            //Monthly Payment
+            double monthlyPayment = CalcMonthlyPayment(loanAmount, rateIn, termIn);
+
+            //Principal of Loan Amount
+            double principalLoanAmount = 0;
+
+            //Balance of Amount
+            double BalanceAmount = 0;
+
+            //Interest Paid
+            double interest = 0;
+
+            //Principal
+            double principal = loanAmount;
+
+            //Total Payment
+            double totalPayment = 0;
+
+            //display the monthly payment
+            txtMonthly.Text = monthlyPayment.ToString("c");
+
+            //set the total amount paid
+            txtTotal.Text = (monthlyPayment * (12 * termIn)).ToString("c");
+
+            // Dispaly Columns
+            lstOutput.Items.Add(string.Format("{0,5}{1,17}{2,22}{3,20}",
+            "Month", "Principal", "Int/Pmt", "Prn/Pmt"));
+
+            //Iterate to Output interest, balance, total interest, and total
+            for (int month = 1; month <= termIn * 12; month++)
+            {
+                // Calculate the Interest
+                interest = principal * rateIn;
+
+                // Calculate the Principal
+                principalLoanAmount = monthlyPayment - interest;
+
+                // Calculte the Balance
+                BalanceAmount = principal - principalLoanAmount;
+
+                // Calculate the Total
+                totalPayment = totalPayment + interest;
+
+                //Output
+                lstOutput.Items.Add(string.Format("{0,10}{1,17}{2,18}{3,21}",
+                month, BalanceAmount.ToString("c"), interest.ToString("c"),
+                principalLoanAmount.ToString("c")));
+                principal = BalanceAmount;
+
+            }// end loop
+        }
 
 
         /// <summary>
@@ -157,60 +213,8 @@ namespace LoanAmortization
                 LoanYearOk();
                 InterestOk();
 
-
-                //Interest rate
-                rateIn = (rateIn / 100.0) / 12.0;
-
-                //Monthly Payment
-                double monthlyPayment = CalcMonthlyPayment(loanAmount, rateIn, termIn);
-
-                //Principal of Loan Amount
-                double principalLoanAmount = 0;
+                Calculate();
                 
-                //Balance of Amount
-                double BalanceAmount = 0;
-                
-                //Interest Paid
-                double interest = 0;
-                
-                //Principal
-                double principal = loanAmount;
-                
-                //Total Payment
-                double totalPayment = 0;
-
-                //display the monthly payment
-                txtMonthly.Text = monthlyPayment.ToString("c");
-
-                //set the total amount paid
-                txtTotal.Text = (monthlyPayment * (12 * termIn)).ToString("c");
-
-                // Dispaly Columns
-                lstOutput.Items.Add(string.Format("{0,5}{1,17}{2,22}{3,20}",
-                "Month", "Principal", "Int/Pmt", "Prn/Pmt"));
-
-                //Iterate to Output interest, balance, total interest, and total
-                for (int month = 1; month <= termIn * 12; month++)
-                {
-                    // Calculate the Interest
-                    interest = principal * rateIn;
-
-                    // Calculate the Principal
-                    principalLoanAmount = monthlyPayment - interest;
-
-                    // Calculte the Balance
-                    BalanceAmount = principal - principalLoanAmount;
-
-                    // Calculate the Total
-                    totalPayment = totalPayment + interest;
-
-                    //Output
-                    lstOutput.Items.Add(string.Format("{0,10}{1,17}{2,18}{3,21}",
-                    month, BalanceAmount.ToString("c"), interest.ToString("c"),
-                    principalLoanAmount.ToString("c")));
-                    principal = BalanceAmount;
-
-                }// end loop
 
             }// end try
             catch (Exception exc)
